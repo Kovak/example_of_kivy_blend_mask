@@ -1,0 +1,96 @@
+#:kivy 1.6.0
+
+
+RootWidget:
+
+<RootWidget>:
+    texturemaskwidget: texturemaskwidget
+    blend_func_chooser: blend_func_chooser
+    ScrollableGridLayout:
+        size: (root.size[0] * .5, root.size[1] * .8)
+        pos: (root.size[0]*.25, root.size[1]*.1)
+    TextureMaskWidget:
+        id: texturemaskwidget
+        size: (50, root.size[1] *.8)
+        pos: (root.size[0]*.75-50, root.size[1]*.1)
+    BlendFuncChooser:
+        id: blend_func_chooser
+        canvas_to_blend: texturemaskwidget
+        size_hint: (None, None)
+        pos: (0, 0)
+        size: (root.size[0] *.5, root.size[1] *.1)
+
+
+<BlendFuncChooser>:
+    blend_button: blend_button
+    orientation: 'horizontal' 
+    Label:
+        text: 'Blend Function'
+        size_hint: (.9, .4)
+        font_size: root.size[0]*.03
+        halign: 'left'
+    Button:
+        id: blend_button
+        text: 'Source -> Dest'
+        font_size: root.size[0]*.03
+        size_hint: (.9, .6)
+        on_press: root.open_popup()
+
+
+<BlendFuncChoices>:
+    choices_box: choices_box
+    src_choices_box: src_choices_box
+    dest_choices_box: dest_choices_box
+    background_color: (0, 0, 0, 0)
+    pos_hint: {'x': .5, 'y': .2}
+    size_hint: (.5, .6)
+    BoxLayout:
+        id: choices_box
+        orientation: 'horizontal'
+        BoxLayout:
+            id: src_choices_box
+            orientation: 'vertical'
+        BoxLayout
+            id: dest_choices_box
+            orientation: 'vertical'
+
+
+
+
+<ScrollableGridLayout>:
+    ScrollView:
+        do_scroll_x: False
+        size: root.size
+        pos: root.pos
+        canvas:
+            Color:
+                rgb: 0, 0, 0
+            Rectangle:
+                pos: root.pos
+                size: root.size
+        CustomGridLayout:
+            cols: 1
+            spacing: 10   
+            size_hint: 1., None
+            height: 0
+            pos: root.pos           
+        
+<TextureMaskWidget>:
+    canvas:
+        Color: 
+            rgba: 1., 1., 1., 1.
+        Rectangle:
+            pos: root.pos
+            size: root.size
+            source: 'gradient.png'    
+
+
+<CustomGridLayout>:
+    canvas:
+        Color:
+            rgba: 1, .5, 0, 1
+        Rectangle:
+            pos: root.pos
+            size: root.size
+
+    
